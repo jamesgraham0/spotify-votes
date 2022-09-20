@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500&family=MuseoModerno&display=swap');
+
+:root {
+    --black: #191414;
+    --green: #1db954;
+    --white: #FFFFFF;
+
+    --opaque-black: rgba(25, 20, 20, 0.4);
+    --opaque-green: rgba(29, 185, 84, 0.2);
+    --opaque-white: rgba(255, 255, 255, 0.4);
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 1px;
+    height: 80%;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--green);
+}
+
+body {
+    background-color: #130f0f;
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    overflow: hidden;
+}
+
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-button {
+    font-size: 80px;
+    transition: 1s;
+    color: var(--opaque-white);
+}
+
+.login-button:hover {
+    color: var(--green);
+    text-decoration: none;
+}
+
+.dashboard-search-browse-player {
+    position: absolute;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+    background-color: rgb(24, 24, 24);    
+}
+
+.search-bar {
+    position: absolute;
+    left: 2%;
+    top: 2%;
+    width: fit-content;
+    background-color: rgb(24, 24, 24);
+    border: 0;
+    margin: 10px;
+    font-size: 30px;
+}
+
+.search-bar:focus {
+    background-color: rgb(24, 24, 24);
+    border: 0;
+    box-shadow: none;
+}
+
+.search-results-container {
+    position: absolute;
+    top: 15vh;
+    width: 35%;
+    bottom: 5vh;
+    flex-grow: 1;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.search-results {
+    width: 30vw;
+    color: var(--green);
+    background-color: rgba(10, 10, 10, 0.4);
+    display: flex;
+    margin: 10px;
+    align-items: center;
+}
+
+.search-results:hover {
+    background-color: rgba(10, 10, 10, 0.8);
+}
+
+.player {
+    position: relative;
+    margin-left: 30vw;
+    margin-top: 30%;
+    width: 35vw;
+    font-size: 40px;
+}
+
+.queue-container {
+    position: relative;
+    margin-left: 70vw;
+    height: 100vh;
+    width: 30vw;
+    background-color: #130f0f;
+    font-size: 40px;
+    padding: 20px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.queue-header {
+    position: relative;
+    margin-left: 10px;
+    color:#2e2e2e;
+}
+
+.queue-track-container {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 5vh;
+    background-color:#130f0f;
+}
+
+.queue-track {
+    width: 25vw;
+    color: var(--green);
+    background-color: rgba(10, 10, 10, 0.4);
+    display: flex;
+    margin: 10px;
+    align-items: center;
+}
+
+.queue-track:hover {
+    background-color: rgba(10, 10, 10, 0.8);
+}

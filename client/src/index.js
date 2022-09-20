@@ -1,10 +1,15 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import App from "./App"
+import './styles.css'
+import { createDocStore } from "@syncstate/core";
+import { Provider } from "@syncstate/react";
+
+const store = createDocStore({ queue: [] });
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById("root")
 )
