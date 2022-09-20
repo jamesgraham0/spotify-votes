@@ -84,15 +84,10 @@ export default function Dashboard({ code }) {
       tracks.push({
         id: id,
         track: track,
-        upVotes: 0,
-        downVotes: 0
+        votes: 0,
       });
     });
   };
-
-  useEffect(() => {
-    console.log("QUEUE TRACKS: ", queueTracks);
-  }, [queueTracks])
 
   return (
     <div>
@@ -124,7 +119,9 @@ export default function Dashboard({ code }) {
         </div>
       </Container>
       <div>
-        <Queue accessToken={accessToken}/>
+        <Queue 
+        accessToken={accessToken}
+        />
       </div>
     </div>
   )

@@ -142,3 +142,16 @@ body {
 .queue-track:hover {
     background-color: rgba(10, 10, 10, 0.8);
 }
+
+.queue-list {
+    max-width: 30vw;
+    color: var(--green);
+    display: flex;
+    margin: 10px;
+    align-items: center;
+    font-size: 14px;
+}
+
+.queue-list:hover{
+    background-color: rgba(10, 10, 10, 0.8);
+}

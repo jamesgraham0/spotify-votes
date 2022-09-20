@@ -15,10 +15,6 @@ export default function TrackSearchResult({ track, addTrack, chooseTrack }) {
       style={{ cursor: "pointer" }}
       onClick={handleAdd}
     >
-      <div
-        style={{ cursor: "pointer" }}
-        onClick={handlePlay}
-      ></div>
       <img src={track.albumUrl} style={{ height: "100px", width: "100px" }} alt="here"/>
       <div className="m-3">
         <div>{track.title}</div>
