@@ -1,23 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useDoc } from "@syncstate/react";
 
-export default function QueueTrack({ track, trackQueuePath, updateQueueOrder }) {
+export default function QueueTrack({ track, trackQueuePath }) {
   const [queue, setQueue] = useDoc("/queue", Infinity);
   const [trackToAdd, setTrackToAdd] = useDoc(trackQueuePath);
-  const [votes, setVotes] = useState(0);
+  const [votes, setVotes] = useState(1);
 
+  const updateQueue = (id) => {
+    let index = (trackQueuePath.slice(-1));
+      // add the updatedTrack with new votes
+    let updatedTrack = {...trackToAdd, votes:votes+1}
+    setQueue((queue) => {
+      queue.splice(index, 1, updatedTrack);
+    })
+  };
 
-
-  async function upVote(e) {
+  function addVote(e) {
     e.preventDefault();
-    await setVotes(votes+1);
-    updateQueueOrder(track.track.uri, votes+1);
+    setVotes((votes) => votes+1);
+    updateQueue(trackToAdd.id);
   }
 
   return (
     <div
         style={{ cursor: "pointer" }}
-        onClick={upVote}
+        onClick={(e) => addVote(e)}
       >
         <div className="queue-list">
           <span className="queue-img-and-votes">

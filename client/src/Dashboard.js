@@ -6,7 +6,8 @@ import TrackSearchResult from "./TrackSearchResult"
 import { Container, Form } from "react-bootstrap"
 import SpotifyWebApi from "spotify-web-api-node"
 import axios from "axios"
-import { useDoc } from "@syncstate/react";
+import { useSelector, useDispatch } from 'react-redux';
+import { addTrackAsync } from './redux/tracks/thunks'
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "1b96222290ef4dfb8b21fe86956b020d",
@@ -18,8 +19,9 @@ export default function Dashboard({ code }) {
   const [searchResults, setSearchResults] = useState([])
   const [playingTrack, setPlayingTrack] = useState()
   const [lyrics, setLyrics] = useState("")
-  const queuePath = "/queue";
-  const [queueTracks, setQueueTracks] = useDoc(queuePath);
+
+  const queue = useSelector(state => state.tracks.list);
+  const dispatch = useDispatch();
 
   function chooseTrack(track) {
     setPlayingTrack(track)
@@ -62,7 +64,6 @@ export default function Dashboard({ code }) {
             },
             track.album.images[0]
           )
-
           return {
             artist: track.artists[0].name,
             title: track.name,
@@ -79,15 +80,15 @@ export default function Dashboard({ code }) {
   //generate unique id
   const keyGenerator = () => "_" + Math.random().toString(36).substr(2, 9);
   const addTrack = (track) => {
-    setQueueTracks((tracks) => {
+
       let id = keyGenerator();
-      tracks.push({
+      let trackToAdd = {
         id: id,
         track: track,
-        votes: 0,
-      });
-    });
-  };
+        votes: 1,
+      }
+      // dispatch(addTrackAsync(trackToAdd));
+  }
 
   return (
     <div>
@@ -119,9 +120,7 @@ export default function Dashboard({ code }) {
         </div>
       </Container>
       <div>
-        <Queue 
-        accessToken={accessToken}
-        />
+        <Queue/>
       </div>
     </div>
   )
