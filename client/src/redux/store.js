@@ -3,5 +3,4 @@ import rootReducer from '../reducers/index';
 
 export const store = configureStore({
     reducer: {tracks: rootReducer}, 
-    devTools: true
 });

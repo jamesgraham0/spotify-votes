@@ -1,50 +1,19 @@
 export async function getTracks() {
-    const response = await fetch('http://localhost:3000/tracks', {
-        method: 'GET'
-    });
-    return response.json();
+    return;
 };
 
 export async function addTrack(track) {
-    const response = await fetch('http://localhost:3000/tracks', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(track)
-}); 
-    const data = await response.json();
-    if (!response.ok) {
-        const errorMsg = data?.message;
-        throw new Error(errorMsg);
-    }
-    return data;
+    return track;
 };
 
 export async function deleteTrack(trackId) {
-    const response = await fetch('http://localhost:3000/tracks/' + trackId.toString(), {
-        method: 'DELETE'
-    })
-    .catch(error => {
-        console.log(error);
-    });
-    return response.json();
+    return trackId;
 }
 
-// TODO: change this so that it actually adds a vote
+// Returns track with added vote
 export async function voteTrack(track) {
-    let trackId = track.id;
-    const response = await fetch('http://localhost:3000/tracks/vote/' + trackId.toString(), {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(track)
-    })
-    const data = await response.json();
-    if (!response.ok) {
-        const errorMsg = data?.message;
-        throw new Error(errorMsg);
-    }
-    return data;
+    let currVotes = track.votes + 1;
+    let trackToVote = {...track, votes:currVotes}
+    console.log("track with added vote", trackToVote);
+    return trackToVote;
 }

@@ -6,7 +6,7 @@ import TrackSearchResult from "./TrackSearchResult"
 import { Container, Form } from "react-bootstrap"
 import SpotifyWebApi from "spotify-web-api-node"
 import axios from "axios"
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addTrackAsync } from './redux/tracks/thunks'
 
 const spotifyApi = new SpotifyWebApi({
@@ -19,8 +19,7 @@ export default function Dashboard({ code }) {
   const [searchResults, setSearchResults] = useState([])
   const [playingTrack, setPlayingTrack] = useState()
   const [lyrics, setLyrics] = useState("")
-
-  const queue = useSelector(state => state.tracks.list);
+  const queue = useSelector(state => state.tracks.trackList.tracks);
   const dispatch = useDispatch();
 
   function chooseTrack(track) {
@@ -87,7 +86,7 @@ export default function Dashboard({ code }) {
         track: track,
         votes: 1,
       }
-      // dispatch(addTrackAsync(trackToAdd));
+      dispatch(addTrackAsync(trackToAdd));
   }
 
   return (
@@ -120,7 +119,7 @@ export default function Dashboard({ code }) {
         </div>
       </Container>
       <div>
-        <Queue/>
+        <Queue state={queue}/>
       </div>
     </div>
   )

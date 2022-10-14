@@ -1,3 +1,7 @@
+// Thunks are middleware that allow us to return functions rather
+// than just actionTypes, within Redux
+// This allows for delayed actionTypes, including working with promises
+
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { actionTypes } from './actionTypes';
 import { getTracks, addTrack, deleteTrack, voteTrack} from './service';
@@ -18,15 +22,14 @@ export const addTrackAsync = createAsyncThunk(
 
 export const deleteTrackAsync = createAsyncThunk(
     actionTypes.DELETE_Track,
-    async ( trackId ) => {
-        return await deleteTrack( trackId );
+    async (trackId) => {
+        return await deleteTrack(trackId);
     }
 )
 
 export const voteTrackAsync = createAsyncThunk(
     actionTypes.VOTE_TRACK,
-    async () => {
-        return await voteTrack();
+    async (track) => {
+        return await voteTrack(track);
     }
 )
-

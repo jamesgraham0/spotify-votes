@@ -1,24 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useDoc } from "@syncstate/react";
+import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { voteTrackAsync } from './redux/tracks/thunks';
 
-export default function QueueTrack({ track, trackQueuePath }) {
-  const [queue, setQueue] = useDoc("/queue", Infinity);
-  const [trackToAdd, setTrackToAdd] = useDoc(trackQueuePath);
+export default function QueueTrack({ track }) {
   const [votes, setVotes] = useState(1);
-
-  const updateQueue = (id) => {
-    let index = (trackQueuePath.slice(-1));
-      // add the updatedTrack with new votes
-    let updatedTrack = {...trackToAdd, votes:votes+1}
-    setQueue((queue) => {
-      queue.splice(index, 1, updatedTrack);
-    })
-  };
+  const dispatch = useDispatch();
 
   function addVote(e) {
     e.preventDefault();
     setVotes((votes) => votes+1);
-    updateQueue(trackToAdd.id);
+    dispatch(voteTrackAsync(track));
   }
 
   return (
