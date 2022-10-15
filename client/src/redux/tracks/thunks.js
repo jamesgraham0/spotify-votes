@@ -21,7 +21,7 @@ export const addTrackAsync = createAsyncThunk(
 );
 
 export const deleteTrackAsync = createAsyncThunk(
-    actionTypes.DELETE_Track,
+    actionTypes.DELETE_TRACK,
     async (trackId) => {
         return await deleteTrack(trackId);
     }

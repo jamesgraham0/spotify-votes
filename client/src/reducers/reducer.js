@@ -57,13 +57,12 @@ const tracksSlice = createSlice({
         .addCase(deleteTrackAsync.fulfilled, (state, action) => {
             console.log("delete fulfilled")
             state.deleteTrack = REQUEST_STATE.FULFILLED;
-            let id = action.payload.id;
-            state.tracks.map((track, index) => {
-                if (track.id === id) {
-                    state.tracks.splice(index, 1)
+            state.tracks.forEach((track, index) => {
+                if (track.id === action.payload) {
+                    state.tracks.splice(index, 1);
                 }
             })
-            state.tracks.sort((a, b) => a.votes - b.votes);
+            console.log("State after splice", state);
             return state;
         })
         .addCase(deleteTrackAsync.rejected, (state, action) => {
@@ -81,7 +80,7 @@ const tracksSlice = createSlice({
             state.voteTrack = REQUEST_STATE.FULFILLED;
             // first delete the old track from queue
             let id = action.payload.id;
-            state.tracks.map((track, index) => {
+            state.tracks.forEach((track, index) => {
                 if (track.id === id) {
                     state.tracks.splice(index, 1)
                 }

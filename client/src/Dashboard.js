@@ -7,7 +7,7 @@ import { Container, Form } from "react-bootstrap"
 import SpotifyWebApi from "spotify-web-api-node"
 import axios from "axios"
 import { useDispatch, useSelector } from 'react-redux';
-import { addTrackAsync } from './redux/tracks/thunks'
+import { addTrackAsync, deleteTrackAsync } from './redux/tracks/thunks'
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "1b96222290ef4dfb8b21fe86956b020d",
@@ -22,10 +22,8 @@ export default function Dashboard({ code }) {
   const queue = useSelector(state => state.tracks.trackList.tracks);
   const dispatch = useDispatch();
 
-  function chooseTrack(track) {
-    setPlayingTrack(track)
-    setSearch("")
-    setLyrics("")
+  async function chooseTrack(track) {
+    await setPlayingTrack(track);
   }
 
   useEffect(() => {
@@ -79,7 +77,6 @@ export default function Dashboard({ code }) {
   //generate unique id
   const keyGenerator = () => "_" + Math.random().toString(36).substr(2, 9);
   const addTrack = (track) => {
-
       let id = keyGenerator();
       let trackToAdd = {
         id: id,
@@ -89,7 +86,13 @@ export default function Dashboard({ code }) {
       dispatch(addTrackAsync(trackToAdd));
   }
 
+  const popQueue = (trackId) => {
+    console.log("popQueue dashboard");
+    dispatch(deleteTrackAsync(trackId));
+  }
+
   return (
+    // <div className="header-fade"></div>
     <div>
       <Container className="dashboard-search-browse-player">
         <Form.Control
@@ -102,24 +105,23 @@ export default function Dashboard({ code }) {
         <div className="search-results-container">
           {searchResults.map(track => (
               <TrackSearchResult
-                track={track}
                 key={track.uri}
-                chooseTrack={chooseTrack}
+                track={track}
                 addTrack={addTrack}
               />
           ))}
-          {searchResults.length === 0 && (
-            <div className="text-center text-white text-base" style={{ whiteSpace: "pre" }}>
-              {lyrics}
-            </div>
-          )}
         </div>
         <div className="player">
-          <Player accessToken={accessToken} trackUri={playingTrack?.uri} />
+          <Player queue={queue} accessToken={accessToken} trackUri={playingTrack?.uri} popQueue={popQueue} />
         </div>
+        {playingTrack && (
+            <div id="lyrics" className="text-center text-white text-base" style={{ whiteSpace: "pre" }}>
+              {lyrics}
+            </div>
+        )}
       </Container>
-      <div>
-        <Queue state={queue}/>
+      <div className="queue">
+        <Queue state={queue} chooseTrack={chooseTrack} />
       </div>
     </div>
   )

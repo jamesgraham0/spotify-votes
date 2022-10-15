@@ -1,10 +1,6 @@
 import React from "react"
 
-export default function TrackSearchResult({ track, addTrack, chooseTrack }) {
-  function handlePlay() {
-    chooseTrack(track)
-  }
-
+export default function TrackSearchResult({ track, addTrack }) {
   function handleAdd() {
     addTrack(track)
   }

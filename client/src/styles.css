@@ -26,7 +26,7 @@ html {
 }
 
 body {
-    background-color: #130f0f;
+    background-color: #000000;
     font-family: 'Barlow Semi Condensed', sans-serif;
     overflow: hidden;
 }
@@ -47,6 +47,20 @@ body {
     color: var(--green);
     text-decoration: none;
 }
+
+/* .header-fade {
+    background-image: linear-gradient(to bottom, #00ff5959,
+                                    #00c74642 20%,
+                                    #02a83c1f 40%,
+                                    #007c2b0a 50%,
+                                    #00461905 60%,
+                                    rgb(24, 24, 24) 90%);
+    height: 20vh;
+    width: 70vw;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+} */
 
 .dashboard-search-browse-player {
     position: absolute;
@@ -97,12 +111,22 @@ body {
     background-color: rgba(10, 10, 10, 0.8);
 }
 
-.player {
-    position: relative;
-    margin-left: 30vw;
-    margin-top: 30%;
+#lyrics, .player {
+    position: absolute;
+    margin-left: 31vw;
     width: 35vw;
-    font-size: 40px;
+}
+
+.player {
+    margin-top: 10%;
+    bottom: 5vh;
+}
+
+#lyrics {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    top: 15vh;
+    bottom: 15vh;
 }
 
 .queue-container {
@@ -110,11 +134,12 @@ body {
     margin-left: 70vw;
     height: 100vh;
     width: 30vw;
-    background-color: #130f0f;
+    background-color: #111111;
     font-size: 40px;
     padding: 20px;
     overflow-y: scroll;
     overflow-x: hidden;
+    z-index: 0;
 }
 
 .queue-header {
@@ -127,7 +152,6 @@ body {
     flex-direction: row;
     justify-content: center;
     margin-top: 5vh;
-    background-color:#130f0f;
 }
 
 .queue-track {
