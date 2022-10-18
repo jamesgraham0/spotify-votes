@@ -12,8 +12,5 @@ export async function deleteTrack(trackId) {
 
 // Returns track with added vote
 export async function voteTrack(track) {
-    let currVotes = track.votes + 1;
-    let trackToVote = {...track, votes:currVotes}
-    console.log("track with added vote", trackToVote);
-    return trackToVote;
+    return track;
 }

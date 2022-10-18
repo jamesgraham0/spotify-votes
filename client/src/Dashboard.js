@@ -7,7 +7,7 @@ import { Container, Form } from "react-bootstrap"
 import SpotifyWebApi from "spotify-web-api-node"
 import axios from "axios"
 import { useDispatch, useSelector } from 'react-redux';
-import { addTrackAsync, deleteTrackAsync } from './redux/tracks/thunks'
+import { addTrackAsync, deleteTrackAsync, voteTrackAsync } from './redux/tracks/thunks'
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "1b96222290ef4dfb8b21fe86956b020d",
@@ -22,8 +22,12 @@ export default function Dashboard({ code }) {
   const queue = useSelector(state => state.tracks.trackList.tracks);
   const dispatch = useDispatch();
 
-  async function chooseTrack(track) {
-    await setPlayingTrack(track);
+  function chooseTrack(track) {
+    setPlayingTrack(track);
+  }
+
+  const addVoteToTrack = (track) => {
+    dispatch(voteTrackAsync(track));  
   }
 
   useEffect(() => {
@@ -37,6 +41,10 @@ export default function Dashboard({ code }) {
       })
       .then(res => {
         setLyrics(res.data.lyrics)
+      })
+      .catch(err => {
+        setLyrics("No Lyrics");
+        console.error(err);
       })
   }, [playingTrack])
 
@@ -86,9 +94,13 @@ export default function Dashboard({ code }) {
       dispatch(addTrackAsync(trackToAdd));
   }
 
-  const popQueue = (trackId) => {
-    console.log("popQueue dashboard");
+  async function popQueue(trackId) {
+    console.log("popQueue dashboard trackId =", trackId);
     dispatch(deleteTrackAsync(trackId));
+    return new Promise((resolve, reject) => {
+      resolve("returning from popQueue fn");
+      reject("rejected");
+    });
   }
 
   return (
@@ -121,7 +133,7 @@ export default function Dashboard({ code }) {
         )}
       </Container>
       <div className="queue">
-        <Queue state={queue} chooseTrack={chooseTrack} />
+        <Queue state={queue} chooseTrack={chooseTrack} addVoteToTrack={addVoteToTrack}/>
       </div>
     </div>
   )

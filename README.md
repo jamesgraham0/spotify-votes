@@ -6,4 +6,6 @@
     2.1. Set room password
 3. Display number of users in a room
 4. Allow users to vote for each track a max 1 time
-5. Prevent tracks from being added more than once
+5. ✅ Prevent tracks from being added more than once
+6. Prevent currently playing track from being replaced
+    6.1. Only sort from 2nd-last tracks 

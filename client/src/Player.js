@@ -15,24 +15,31 @@ export default function Player({ queue, accessToken, trackUri, popQueue }) {
       token={accessToken}
       showSaveIcon={true}
       callback={state => {
-        state.nextTracks = queue;
         if (!state.isPlaying) setPlay(false)
-        // when state.position === 100, the song is done
-        // console.log(state);
-        // if (state.position === 100) {
-        //   popQueue(state.track.id);
-        // }
+        if (state.previousTracks.length && 
+          state.previousTracks[state.previousTracks.length-1].uri === trackUri) {
+          (async () => {
+            await popQueue(state.track.id)
+            .then(() => {
+              state.nextTracks = queue;
+            })
+          })();
+        }
+        else {
+          state.nextTracks = queue;
+        }
+        console.log("STATE", state);
       }}
       play={play}
       uris={trackUri ? [trackUri] : []}
       styles={{
         activeColor: '#1db954',
         bgColor: '#181818',
-        color: '#fff',
+        color: '#1db954',
         loaderColor: '#fff',
         sliderColor: '#1cb954',
         trackArtistColor: '#ccc',
-        trackNameColor: '#FFF',
+        trackNameColor: '#1db954',
       }}
     />
   )

@@ -65,10 +65,11 @@ body {
 .dashboard-search-browse-player {
     position: absolute;
     height: 100vh;
+    width: 70vw;
     display: flex;
     flex-direction: column;
     padding: 2px;
-    background-color: rgb(24, 24, 24);    
+    background-image: linear-gradient(to right,#000000, rgb(24, 24, 24) 40%)    
 }
 
 .search-bar {
@@ -91,7 +92,7 @@ body {
 .search-results-container {
     position: absolute;
     top: 15vh;
-    width: 35%;
+    width: 40%;
     bottom: 5vh;
     flex-grow: 1;
     overflow-y: scroll;
@@ -119,14 +120,14 @@ body {
 
 .player {
     margin-top: 10%;
-    bottom: 5vh;
+    bottom: 20vh;
 }
 
 #lyrics {
     overflow-y: scroll;
     overflow-x: hidden;
     top: 15vh;
-    bottom: 15vh;
+    bottom: 30vh;
 }
 
 .queue-container {
@@ -134,12 +135,12 @@ body {
     margin-left: 70vw;
     height: 100vh;
     width: 30vw;
-    background-color: #111111;
     font-size: 40px;
     padding: 20px;
     overflow-y: scroll;
     overflow-x: hidden;
     z-index: 0;
+    background-image: linear-gradient(to right, rgb(24, 24, 24), #000000 100%)
 }
 
 .queue-header {
@@ -151,7 +152,20 @@ body {
 .queue-track-container {
     flex-direction: row;
     justify-content: center;
-    margin-top: 5vh;
+    margin-top: 8vh;
+}
+
+.queue-list {
+    max-width: 30vw;
+    color: var(--green);
+    display: flex;
+    margin: 10px;
+    align-items: center;
+    font-size: 14px;
+}
+
+.queue-list:hover{
+    background-color: rgba(10, 10, 10, 0.8);
 }
 
 .queue-track {
@@ -167,15 +181,23 @@ body {
     background-color: rgba(10, 10, 10, 0.8);
 }
 
-.queue-list {
-    max-width: 30vw;
+#playing-track {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 250px;
+    height: 100px;
     color: var(--green);
-    display: flex;
-    margin: 10px;
-    align-items: center;
+    margin: 5px;
     font-size: 14px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgba(64, 107, 169, 0.3);
 }
 
-.queue-list:hover{
-    background-color: rgba(10, 10, 10, 0.8);
+.queue-img {
+    width: 80px;
+    height: 80px;
+    margin: 10px;
 }
