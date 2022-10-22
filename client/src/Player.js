@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react"
 import SpotifyPlayer from "react-spotify-web-playback"
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 // import { playTrackAsync } from "./redux/tracks/thunks";
 
 export default function Player({ accessToken, popQueue }) {
   const [play, setPlay] = useState(false)
   const [playingTrack, setPlayingTrack] = useState();
-  const state = useSelector(state => state.tracks.trackList);
+  // const state = useSelector(state => state.tracks.trackList);
   const queue = useSelector(state => state.tracks.trackList.tracks);
-  // const dispatch = useDispatch();
 
   useEffect(() => {
     if (queue.length > 0) {
@@ -33,13 +32,16 @@ export default function Player({ accessToken, popQueue }) {
           (async () => {
             await popQueue(state.track.id)
             .then(() => {
-              state.nextTracks = queue;
+              if (queue.length >= 2) {
+                state.nextTracks = queue[1];
+              }
             })
           })();
         }
         else {
           state.nextTracks = queue;
         }
+        console.log("state", state);
       }}
       play={play}
       uris={playingTrack?.uri ? [playingTrack?.uri] : []}
