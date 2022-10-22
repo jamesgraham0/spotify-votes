@@ -1,7 +1,10 @@
 import React from "react";
 import QueueTrack from "./QueueTrack";
+import { useSelector } from 'react-redux';
 
-export default function Queue({ state, addVoteToTrack }) {
+export default function Queue({ chooseTrack, addVoteToTrack }) {
+  const state = useSelector(state => state.tracks.trackList.tracks);
+
   const addVote = (track) => {
       addVoteToTrack(track);
   }
@@ -14,9 +17,9 @@ export default function Queue({ state, addVoteToTrack }) {
           {state && [...state]
           .map((track, index) => {
             if (index === 0) {
+              // chooseTrack(track.track);
               return (
                 <li key={track.id} id="playing-track">
-                  {/* <div className="queue-list"> */}
                   <span className="queue-img-and-votes">
                     <img className="queue-img" src={track.track.albumUrl} alt=":)"/>
                   </span>
@@ -24,7 +27,6 @@ export default function Queue({ state, addVoteToTrack }) {
                     <div>{track.track.title}</div>
                     <div className="text-muted">{track.track.artist}</div>
                   </div>
-                {/* </div> */}
                 </li>
               )
             }

@@ -6,7 +6,7 @@ import TrackSearchResult from "./TrackSearchResult"
 import { Container, Form } from "react-bootstrap"
 import SpotifyWebApi from "spotify-web-api-node"
 import axios from "axios"
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addTrackAsync, deleteTrackAsync, voteTrackAsync } from './redux/tracks/thunks'
 
 const spotifyApi = new SpotifyWebApi({
@@ -19,10 +19,9 @@ export default function Dashboard({ code }) {
   const [searchResults, setSearchResults] = useState([])
   const [playingTrack, setPlayingTrack] = useState()
   const [lyrics, setLyrics] = useState("")
-  const queue = useSelector(state => state.tracks.trackList.tracks);
   const dispatch = useDispatch();
 
-  function chooseTrack(track) {
+  const chooseTrack = (track) => { // currently not being called from Queue
     setPlayingTrack(track);
   }
 
@@ -95,12 +94,7 @@ export default function Dashboard({ code }) {
   }
 
   async function popQueue(trackId) {
-    console.log("popQueue dashboard trackId =", trackId);
-    dispatch(deleteTrackAsync(trackId));
-    return new Promise((resolve, reject) => {
-      resolve("returning from popQueue fn");
-      reject("rejected");
-    });
+    await dispatch(deleteTrackAsync(trackId));
   }
 
   return (
@@ -124,7 +118,7 @@ export default function Dashboard({ code }) {
           ))}
         </div>
         <div className="player">
-          <Player queue={queue} accessToken={accessToken} trackUri={playingTrack?.uri} popQueue={popQueue} />
+          <Player accessToken={accessToken} popQueue={popQueue} />
         </div>
         {playingTrack && (
             <div id="lyrics" className="text-center text-white text-base" style={{ whiteSpace: "pre" }}>
@@ -133,7 +127,7 @@ export default function Dashboard({ code }) {
         )}
       </Container>
       <div className="queue">
-        <Queue state={queue} chooseTrack={chooseTrack} addVoteToTrack={addVoteToTrack}/>
+        <Queue chooseTrack={chooseTrack} addVoteToTrack={addVoteToTrack}/>
       </div>
     </div>
   )

@@ -14,3 +14,7 @@ export async function deleteTrack(trackId) {
 export async function voteTrack(track) {
     return track;
 }
+
+export async function playTrack(track) {
+    return track;
+}

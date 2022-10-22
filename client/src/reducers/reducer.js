@@ -2,10 +2,18 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 import { REQUEST_STATE } from '../redux/utils';
-import { addTrackAsync, getTracksAsync, deleteTrackAsync, voteTrackAsync } from '../redux/tracks/thunks';
+import { 
+    addTrackAsync, 
+    getTracksAsync, 
+    deleteTrackAsync, 
+    voteTrackAsync,
+    playTrackAsync 
+} from '../redux/tracks/thunks';
 
 const INITIAL_STATE = {
     tracks: [],
+    playingTrack: null,
+    playingTrackState: REQUEST_STATE.IDLE,
     getTracks: REQUEST_STATE.IDLE,
     addTrack: REQUEST_STATE.IDLE,
     deleteTrack: REQUEST_STATE.IDLE,
@@ -19,7 +27,6 @@ const tracksSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-
 
         // ============= GET =============
         .addCase(getTracksAsync.pending, (state) => {
@@ -100,11 +107,30 @@ const tracksSlice = createSlice({
                 }
             })
             state.tracks.sort((a, b) => b.votes - a.votes);
+            // state.playTrack = state.tracks[0];
             return state;
         })
         .addCase(voteTrackAsync.rejected, (state, action) => {
             console.log("vote rejected")
             state.voteTrack = REQUEST_STATE.REJECTED;
+            state.error = action.error;
+        })
+
+        // ============= PLAY TRACK ============= 
+        .addCase(playTrackAsync.pending, (state) => {
+            console.log("play pending")
+            state.playingTrackState = REQUEST_STATE.PENDING;
+            state.error = null;
+        })
+        .addCase(playTrackAsync.fulfilled, (state, action) => {
+            console.log("play fulfilled")
+            state.playingTrackState = REQUEST_STATE.FULFILLED;
+            state.playingTrack = action.payload;
+            return state;
+        })
+        .addCase(playTrackAsync.rejected, (state, action) => {
+            console.log("play rejected")
+            state.playingTrackState = REQUEST_STATE.REJECTED;
             state.error = action.error;
         })
     }

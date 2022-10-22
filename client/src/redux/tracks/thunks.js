@@ -4,7 +4,7 @@
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { actionTypes } from './actionTypes';
-import { getTracks, addTrack, deleteTrack, voteTrack } from './service';
+import { getTracks, addTrack, deleteTrack, voteTrack, playTrack } from './service';
 
 export const getTracksAsync = createAsyncThunk(
     actionTypes.GET_TRACKS,
@@ -31,5 +31,12 @@ export const voteTrackAsync = createAsyncThunk(
     actionTypes.VOTE_TRACK,
     async (track) => {
         return await voteTrack(track);
+    }
+)
+
+export const playTrackAsync = createAsyncThunk(
+    actionTypes.PLAY_TRACK,
+    async (track) => {
+        return await playTrack(track);
     }
 )

@@ -31,6 +31,10 @@ body {
     overflow: hidden;
 }
 
+ul {
+    list-style-type: none;
+}
+
 .login {
     display: flex;
     justify-content: center;
@@ -73,18 +77,20 @@ body {
 }
 
 .search-bar {
+    color: rgb(182, 182, 182);
     position: absolute;
     left: 2%;
     top: 2%;
     width: fit-content;
-    background-color: rgb(24, 24, 24);
+    background-color: rgba(0, 0, 0, 0);
     border: 0;
     margin: 10px;
     font-size: 30px;
 }
 
 .search-bar:focus {
-    background-color: rgb(24, 24, 24);
+    color: rgb(182, 182, 182);
+    background-color: rgba(0, 0, 0, 0);
     border: 0;
     box-shadow: none;
 }
@@ -140,10 +146,11 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
     z-index: 0;
-    background-image: linear-gradient(to right, rgb(24, 24, 24), #000000 100%)
+    background-image: linear-gradient(to right, rgb(24, 24, 24), #000000 100%);
 }
 
 .queue-header {
+    cursor: default;
     position: relative;
     margin-left: 10px;
     color:#2e2e2e;
@@ -171,7 +178,7 @@ body {
 .queue-track {
     width: 25vw;
     color: var(--green);
-    background-color: rgba(10, 10, 10, 0.4);
+    background-color: rgba(10, 10, 10, 0.932);
     display: flex;
     margin: 10px;
     align-items: center;
